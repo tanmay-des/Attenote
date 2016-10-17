@@ -51,11 +51,14 @@
             android:textSize="14sp"
             android:id="@+id/add_subject"
             />
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/subject_list"
-            />
+            android:orientation="vertical"
+            >
+
+        </LinearLayout>
         <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
