@@ -1,53 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+    android:padding="10sp">
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Add Subject"
-        android:id="@+id/time_data_switch"
-        android:layout_alignBaseline="@+id/time_data_text_view"
-        android:layout_alignBottom="@+id/time_data_text_view"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/time_data_end"
-        android:textSize="14sp"
-        android:text="End"
-        android:layout_alignBaseline="@+id/time_data_start"
-        android:layout_alignBottom="@+id/time_data_start"
-        android:layout_alignRight="@+id/time_data_switch"
-        android:layout_alignEnd="@+id/time_data_switch"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/time_data_start"
-        android:text="Start"
-        android:textSize="14sp"
-        android:layout_alignBaseline="@+id/time_data_set_time"
-        android:layout_alignBottom="@+id/time_data_set_time"
-        android:layout_alignLeft="@+id/time_data_switch"
-        android:layout_alignStart="@+id/time_data_switch"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/time_data_set_time"
-        android:text="Set Time"
-        android:padding="0sp"
-        android:layout_below="@+id/time_data_switch"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"/>
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/time_data_set_time"-->
+        <!--android:text="Set Time"-->
+        <!--android:padding="0sp"-->
+        <!--android:layout_below="@+id/time_data_switch"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginStart="10dp"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -60,6 +27,50 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="To"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/time_data_text_view"
+        android:layout_centerHorizontal="true"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Add Subject   "
+        android:id="@+id/time_data_switch"
+        android:layout_alignBaseline="@+id/time_data_text_view"
+        android:layout_alignBottom="@+id/time_data_text_view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/time_data_start"
+        android:text="8:30"
+        android:textSize="18sp"
+
+        android:layout_below="@+id/time_data_text_view"
+        android:layout_alignRight="@+id/time_data_text_view"
+        android:layout_alignEnd="@+id/time_data_text_view"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/time_data_end"
+        android:textSize="18sp"
+        android:text="9:30"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"/>
 
 
 </RelativeLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.infinitequarks.tgz.attenote.Subject;
 import com.infinitequarks.tgz.attenote.TimeData;
@@ -30,11 +31,6 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+ SubjectTable.NAME+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                SubjectTable.Cols.subjectName + " ," +
-                SubjectTable.Cols.isTheory + " )"
-        );
-
         db.execSQL("create table "+ TimeTable.NAME+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TimeTable.Cols.day_no + " ," +
                 TimeTable.Cols.subjectName + " ," +
@@ -42,6 +38,13 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
                 TimeTable.Cols.startTime + " ," +
                 TimeTable.Cols.endTime + " )"
         );
+
+        db.execSQL("create table "+ SubjectTable.NAME+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                SubjectTable.Cols.subjectName + " ," +
+                SubjectTable.Cols.isTheory + " )"
+        );
+
+
     }
 
     @Override
@@ -92,18 +95,20 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
     public void insertData (TimeData newTimeTable){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = getContentValues(newTimeTable);
-        db.insert(SubjectTable.NAME,null,values);
+        db.insert(TimeTable.NAME,null,values);
 
     }
 
     public static ContentValues getContentValues(TimeData newTimeTable){
         ContentValues values = new ContentValues();
 //        values.put(TimeTable.Cols.day_no , newTimeTable.getDay_no());
-        values.put(TimeTable.Cols.subjectName, newTimeTable.getSubjectName());
-        values.put(TimeTable.Cols.isTrue, newTimeTable.getIsTrue());
-        values.put(TimeTable.Cols.startTime, newTimeTable.getStartTime().toString());
-        values.put(TimeTable.Cols.endTime, newTimeTable.getEndTime().toString());
 
+        values.put(TimeTable.Cols.subjectName, newTimeTable.getSubjectName());
+        values.put(TimeTable.Cols.day_no, newTimeTable.getDay());
+        values.put(TimeTable.Cols.isTrue, newTimeTable.getIsTrue());
+        values.put(TimeTable.Cols.startTime, newTimeTable.getStartTime());
+        values.put(TimeTable.Cols.endTime, newTimeTable.getEndTime());
+        Log.d("data save",values.toString());
         return values;
     }
 

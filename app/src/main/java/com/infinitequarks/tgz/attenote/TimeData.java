@@ -10,13 +10,22 @@ import java.util.UUID;
 public class TimeData {
 
     private UUID mId;
+    private int day;
     private String subjectName;
     private int isTrue;
-    private Time startTime;
-    private Time endTime;
+    private String mstartTime;
+    private String mendTime;
 
     public TimeData() {
         mId = UUID.randomUUID();
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public UUID getId() {
@@ -40,19 +49,19 @@ public class TimeData {
         this.isTrue = isTrue;
     }
 
-    public Time getStartTime() {
-        return startTime;
+    public String  getStartTime() {
+        return mstartTime;
     }
 
-    public void setStartTime(Time startTime) {
-        this.startTime = startTime;
+    public void setStartTime(String startTime) {
+        mstartTime = startTime;
     }
 
-    public Time getEndTime() {
-        return endTime;
+    public String getEndTime() {
+        return mendTime;
     }
 
-    public void setEndTime(Time endTime) {
-        this.endTime = endTime;
+    public void setEndTime(String endTime) {
+        mendTime = endTime;
     }
 }
