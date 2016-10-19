@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".AddSubjectActivity">
         </activity>
+        <activity android:name=".SetTimeTableActivity">
+        </activity>
     </application>
 
 </manifest>

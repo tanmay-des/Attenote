@@ -54,6 +54,16 @@ public class AttenoteMainActivity extends AppCompatActivity {
                 startActivityForResult(intent , REQUEST_CODE);
             }
         });
+
+        mSetTimeTableButton = (Button) findViewById(R.id.add_timetable);
+
+        mSetTimeTableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AttenoteMainActivity.this, SetTimeTableActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -63,6 +73,7 @@ public class AttenoteMainActivity extends AppCompatActivity {
         }
         if(requestCode == REQUEST_CODE){
             if(data == null){
+                showData();
                 return;
 
 //                Subject mSubject = (Subject) intent.getSerializableExtra("EXTRA_SUBJECT");
@@ -89,7 +100,7 @@ public class AttenoteMainActivity extends AppCompatActivity {
     }
 
     private void showData(){
-        Cursor res = mDb.getData();
+        Cursor res = mDb.getData(newSubject);
         if(res.getCount()== 0){
             TextView mlistItem = new TextView(this);
             mlistItem.setPadding(20,20,20,20);

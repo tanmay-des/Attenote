@@ -3,4 +3,8 @@
     <string name="welcome_to_attenote">Welcome to attenote!</string>
     <string name="add_subjects">Add subjects</string>
     <string name="add_time_table">Set Timetable</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -57,12 +57,11 @@ public class AddSubjectActivity extends AppCompatActivity {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               boolean datainserted =  mDb.insertData(mSubject.getName().toString(),mSubject.isTheory());
-                if(datainserted){
-//                    Toast.makeText(AddSubjectActivity.this , "DATA INSERTED",Toast.LENGTH_SHORT).show();
-                    setSubject(mSubject);
 
-                }
+                mDb.insertData(mSubject);
+                setSubject(mSubject);
+
+
 
             }
         });
