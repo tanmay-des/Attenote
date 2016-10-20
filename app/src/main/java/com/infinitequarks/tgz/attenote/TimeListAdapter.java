@@ -59,7 +59,7 @@ public class TimeListAdapter extends BaseAdapter {
         subjectList = subjectNames;
         mDay =day;
         sLayoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            mDataSaver = new HashMap<Integer, DataSaver>();
+        mDataSaver = new HashMap<Integer, DataSaver>();
     }
     @Override
     public int getCount() {

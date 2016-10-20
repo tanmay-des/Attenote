@@ -29,9 +29,11 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
         TextView endTime;
         Button addNotes;
         Switch attended;
+        ViewGroup myView;
 
         public DailyListObjectHolder(View itemView){
             super(itemView);
+            myView = (ViewGroup ) itemView;
             subjectName = (TextView) itemView.findViewById(R.id.daily_list_item_subject);
             startTime = (TextView) itemView.findViewById(R.id.daily_list_item_start_time);
             endTime = (TextView) itemView.findViewById(R.id.daily_list_item_end_time);
@@ -55,15 +57,25 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
 
         DailyListObjectHolder dailyListObjectHolder = new DailyListObjectHolder(view);
 
+
         return dailyListObjectHolder;
     }
 
     @Override
     public void onBindViewHolder(DailyListRecyclerViewAdapter.DailyListObjectHolder holder, int position) {
+
         holder.subjectName.setText(mDataset.get(position).getSubjectName());
         holder.startTime.setText(mDataset.get(position).getStartTime());
         holder.endTime.setText(mDataset.get(position).getEndTime());
+
         holder.attended.setChecked(false);
+        if(position % 2==0){
+            holder.myView.setBackgroundColor(0xFFF0F0F0);
+        }
+        else if(position %2 != 0)
+            holder.myView.setBackgroundColor(0xFFFFFFFF);
+
+
 
     }
 

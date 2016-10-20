@@ -98,6 +98,10 @@ public class DailyNoteActivity extends AppCompatActivity {
         mAdapter = new DailyListRecyclerViewAdapter(dailyList);
         mRecyclerView.setAdapter(mAdapter);
 
+        RecyclerView.ItemDecoration itemDecoration =
+                new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
+
 
     }
 }
