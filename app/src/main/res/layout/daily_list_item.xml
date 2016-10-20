@@ -29,16 +29,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/daily_list_item_end_time"
-        android:textSize="18sp"
-        android:text="9:30"
-        android:layout_below="@+id/daily_list_item_subject"
-        android:layout_alignRight="@+id/daily_list_item_subject"
-        android:layout_alignEnd="@+id/daily_list_item_subject"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Subject Name"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -73,15 +63,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/daily_list_item_end_time"
+        android:textSize="18sp"
+        android:text="9:30"
+        android:layout_below="@+id/daily_list_item_subject"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="18sp"
         android:text="To"
         android:id="@+id/textView3"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_below="@+id/daily_list_item_subject"
-        android:layout_toLeftOf="@+id/daily_list_item_end_time"
-        android:layout_toStartOf="@+id/daily_list_item_end_time"
-        android:layout_marginRight="22dp"
-        android:layout_marginEnd="22dp"/>
+        android:layout_toRightOf="@+id/daily_list_item_start_time"
+        android:layout_toEndOf="@+id/daily_list_item_start_time"/>
 
 
 </RelativeLayout>

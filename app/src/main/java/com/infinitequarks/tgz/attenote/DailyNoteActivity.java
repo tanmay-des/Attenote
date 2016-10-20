@@ -95,7 +95,7 @@ public class DailyNoteActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new DailyListRecyclerViewAdapter(dailyList);
+        mAdapter = new DailyListRecyclerViewAdapter(dailyList,this,dayno);
         mRecyclerView.setAdapter(mAdapter);
 
         RecyclerView.ItemDecoration itemDecoration =
@@ -104,4 +104,5 @@ public class DailyNoteActivity extends AppCompatActivity {
 
 
     }
+
 }

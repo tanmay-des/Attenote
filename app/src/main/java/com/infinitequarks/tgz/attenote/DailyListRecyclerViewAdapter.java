@@ -1,15 +1,26 @@
 package com.infinitequarks.tgz.attenote;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.infinitequarks.tgz.attenote.database.AttenoteDatabase;
+import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by m on 10/20/2016.
@@ -19,8 +30,12 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
         .Adapter<DailyListRecyclerViewAdapter
         .DailyListObjectHolder> {
 
-      private static String LOG_TAG ="dailylistadapter";
+    private static String LOG_TAG ="dailylistadapter";
     private ArrayList<TimeData> mDataset;
+    AttenoteDatabase mDatabase ;
+    Date cDate = new Date();
+    String fDate = new SimpleDateFormat("yyyy-MM-dd").format(cDate);
+
 //    private static MyClickListener myClickListener;
 
     public static class DailyListObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -48,8 +63,11 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
         }
     }
 
-    public DailyListRecyclerViewAdapter(ArrayList<TimeData> myDataset){
+    public DailyListRecyclerViewAdapter(ArrayList<TimeData> myDataset, Context context,String dayno){
         mDataset = myDataset;
+        mDatabase = new AttenoteDatabase(context);
+        mDatabase.attendanceInitializer(fDate,dayno);
+        mDatabase.viewTableData();
     }
     @Override
     public DailyListRecyclerViewAdapter.DailyListObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,13 +80,23 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
     }
 
     @Override
-    public void onBindViewHolder(DailyListRecyclerViewAdapter.DailyListObjectHolder holder, int position) {
+    public void onBindViewHolder(final DailyListRecyclerViewAdapter.DailyListObjectHolder holder, final int position) {
 
         holder.subjectName.setText(mDataset.get(position).getSubjectName());
         holder.startTime.setText(mDataset.get(position).getStartTime());
         holder.endTime.setText(mDataset.get(position).getEndTime());
+        boolean newbool = false;
+        if(mDatabase.getAttendanceData(fDate,mDataset.get(position).getSubjectName()).equals("1")){
+            newbool = true;
+        }
+        holder.attended.setChecked(newbool);
+        holder.attended.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        holder.attended.setChecked(false);
+                updateAttendance(isChecked,fDate,mDataset.get(position).getSubjectName());
+            }
+        });
         if(position % 2==0){
             holder.myView.setBackgroundColor(0xFFF0F0F0);
         }
@@ -84,4 +112,7 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
         return mDataset.size();
     }
 
+    public void updateAttendance(boolean bool, String string1,String string2){
+            mDatabase.updateSubjectAttendance(bool,string1,string2);
+    }
 }

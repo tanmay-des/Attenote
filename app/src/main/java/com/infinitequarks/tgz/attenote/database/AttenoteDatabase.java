@@ -14,6 +14,7 @@ import com.infinitequarks.tgz.attenote.Subject;
 import com.infinitequarks.tgz.attenote.TimeData;
 import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.SubjectTable;
 import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.TimeTable;
+import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.Attendance;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * Created by m on 10/18/2016.
@@ -52,12 +54,59 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
         );
 
 
+        db.execSQL("create table "+ Attendance.NAME+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                Attendance.Cols.subjectName + " ," +
+                Attendance.Cols.attended + " ," +
+                Attendance.Cols.date + " )"
+        );
+
+        fakeData(db);
+
+
     }
 
+    public void fakeData(SQLiteDatabase mdb){
+        SQLiteDatabase db = mdb;
+
+
+        for(int i=0;i<9;i++){
+            ContentValues values = new ContentValues();
+            int mj = i +1;
+            values.put(SubjectTable.Cols.subjectName ,"Subject "+mj);
+            if(i<4){
+                values.put(SubjectTable.Cols.isTheory,"true");
+            }
+            else
+                values.put(SubjectTable.Cols.isTheory,"false");
+
+            db.insert(SubjectTable.NAME,null,values);
+        }
+
+
+        for (int i = 0;i<5;i++){
+
+            for (int j =0;j<4;j++){
+                ContentValues values = new ContentValues();
+                Random r = new Random();
+                int i1 = r.nextInt(10 - 1) + 1;
+                values.put(TimeTable.Cols.subjectName,"Subject "+ i1);
+                values.put(TimeTable.Cols.day_no,i);
+                int mj = 9+j;
+                values.put(TimeTable.Cols.startTime,mj+":"+"30");
+                mj++;
+                values.put(TimeTable.Cols.endTime,mj+":"+"30");
+
+                db.insert(TimeTable.NAME,null,values);
+            }
+
+        }
+
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXIST "+SubjectTable.NAME);
         db.execSQL("DROP TABLE IF EXIST "+TimeTable.NAME);
+        db.execSQL("DROP TABLE IF EXIST "+Attendance.NAME);
         onCreate(db);
     }
 
@@ -154,15 +203,79 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
         return newList;
     }
 
+    // functions for attendance table
+
+    public void insertData (String mdate,String subjectName,boolean attended){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = getContentValues(mdate,subjectName,attended);
+        db.insert(Attendance.NAME,null,values);
+
+    }
+
+    public void attendanceInitializer(String mdate,String day_no){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor res = db.rawQuery("select * from "+Attendance.NAME +  " where date = " + "'"+mdate+"'" ,null);
+        if(res.getCount()==0){
+            Cursor res2 = db.rawQuery("select * from "+TimeTable.NAME +" WHERE day_no = " + day_no ,null);
+            while (res2.moveToNext()){
+                ContentValues values = new ContentValues();
+                values.put(Attendance.Cols.subjectName ,res2.getString(2));
+                values.put(Attendance.Cols.date, mdate);
+                values.put(Attendance.Cols.attended, false);
+
+                db.insert(Attendance.NAME,null,values);
+            }
+        }
+        else
+            Log.d("data","found");
+    }
+
+    public static ContentValues getContentValues(String mdate,String subjectName,boolean attended){
+        ContentValues values = new ContentValues();
+        values.put(Attendance.Cols.subjectName ,subjectName);
+        values.put(Attendance.Cols.date, mdate);
+        values.put(Attendance.Cols.attended, attended);
+
+        return values;
+    }
+
+
+    public String getAttendanceData(String mdate, String subjectname){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String mylol= new String();
+        Cursor res = db.rawQuery("select * from "+Attendance.NAME + " where date = "+"'"+mdate+"'"+" AND subjectName = "+"'"+subjectname+"'",null);
+//        Log.d("res",res.getCount()+" ");
+//        Log.d("res",res.getString(0));
+//        Log.d("res",res.getString(1));
+//        Log.d("res",res.getString(2));
+        while (res.moveToNext()){
+          mylol =  res.getString(2);
+        }
+        return mylol;
+    }
+
+    public void updateSubjectAttendance(Boolean attended,String mDate,String subjectName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues newValues = new ContentValues();
+        newValues.put("attended", attended);
+
+        String[] args = new String[]{mDate, subjectName};
+        db.update(Attendance.NAME, newValues, "date=? AND subjectName=?", args);
+    }
+
+
     public void viewTableData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+TimeTable.NAME,null);
+        Cursor res = db.rawQuery("select * from "+Attendance.NAME,null);
         while (res.moveToNext()){
             Log.d("Id",res.getString(0));
-            Log.d("Name",res.getString(2));
-            Log.d("Day No",res.getString(1));
-            Log.d("start Time",res.getString(4));
-            Log.d("end Time",res.getString(5));
+            Log.d("Name",res.getString(1));
+            Log.d("Day No",res.getString(2));
+            Log.d("asdfasf",res.getString(3));
+//            Log.d("start Time",res.getString(4));
+//            Log.d("end Time",res.getString(5));
 
         }
     }
