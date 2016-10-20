@@ -10,8 +10,8 @@ import java.util.UUID;
 public class TimeData {
 
     private UUID mId;
-    private int day;
-    private String subjectName;
+    private int mday;
+    private String msubjectName;
     private int isTrue;
     private String mstartTime;
     private String mendTime;
@@ -21,11 +21,11 @@ public class TimeData {
     }
 
     public int getDay() {
-        return day;
+        return mday;
     }
 
     public void setDay(int day) {
-        this.day = day;
+        mday = day;
     }
 
     public UUID getId() {
@@ -34,11 +34,11 @@ public class TimeData {
 
 
     public String getSubjectName() {
-        return subjectName;
+        return msubjectName;
     }
 
     public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+        msubjectName = subjectName;
     }
 
     public int getIsTrue() {

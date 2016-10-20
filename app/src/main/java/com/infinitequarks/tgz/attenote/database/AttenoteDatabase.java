@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
+import android.support.annotation.NonNull;
+
 import android.util.Log;
 
 import com.infinitequarks.tgz.attenote.Subject;
@@ -13,7 +16,11 @@ import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.SubjectTable;
 import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.TimeTable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Objects;
 
 /**
  * Created by m on 10/18/2016.
@@ -119,6 +126,46 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
         return res;
     }
 
+
+    public ArrayList<TimeData> getDailyData(String day_no){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<TimeData> newList = new ArrayList<>();
+
+
+        Cursor res = db.rawQuery("select * from "+TimeTable.NAME +" WHERE day_no = " + day_no ,null);
+
+        while (res.moveToNext()){
+
+            TimeData newTimeData = new TimeData();
+
+            newTimeData.setSubjectName(res.getString(2));
+            newTimeData.setDay(res.getInt(1));
+            newTimeData.setStartTime(res.getString(4));
+            newTimeData.setEndTime(res.getString(5));
+
+            Log.d("My Data",newTimeData.toString());
+
+            newList.add(newTimeData);
+//            Log.d("data",newList.toString());
+
+
+        }
+        return newList;
+    }
+
+    public void viewTableData(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TimeTable.NAME,null);
+        while (res.moveToNext()){
+            Log.d("Id",res.getString(0));
+            Log.d("Name",res.getString(2));
+            Log.d("Day No",res.getString(1));
+            Log.d("start Time",res.getString(4));
+            Log.d("end Time",res.getString(5));
+
+        }
+    }
 
 
 //    public int deleteData(String mName){

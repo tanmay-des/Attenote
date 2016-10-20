@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -55,18 +56,21 @@ public class SetTimeTableActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDayTextView.setText(dayArray[i]);
-                mListView = (ListView) findViewById(R.id.time_data_list);
 
-                saveData(currentAdapter.mDataSaver);
-
-                currentAdapter = new TimeListAdapter(SetTimeTableActivity.this,subjectList,i);
-                mListView.setAdapter(currentAdapter);
-                i++;
                 if(i > 5){
-                    mNextButton.setEnabled(false);
+                   mNextButton.setText("Finalize");
+                   Intent intent = new Intent(SetTimeTableActivity.this,DailyNoteActivity.class);
+                    startActivity(intent);
                 }
                 else if(i<= 5){
+                    mDayTextView.setText(dayArray[i]);
+                    mListView = (ListView) findViewById(R.id.time_data_list);
+
+                    saveData(currentAdapter.mDataSaver);
+
+                    currentAdapter = new TimeListAdapter(SetTimeTableActivity.this,subjectList,i);
+                    mListView.setAdapter(currentAdapter);
+                    i++;
                     mNextButton.setEnabled(true);
                 }
              }
