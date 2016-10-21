@@ -126,6 +126,8 @@ public class DailyNoteActivity extends AppCompatActivity {
                 break;
 
             case R.id.link_notes_manager:
+                Intent i1= new Intent(this,NotesViewerActivity.class);
+                startActivity(i1);
                 break;
 
 

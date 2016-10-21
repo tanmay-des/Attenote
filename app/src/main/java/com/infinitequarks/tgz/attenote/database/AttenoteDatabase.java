@@ -347,6 +347,12 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
         return ret;
     }
 
+    public Cursor getNotesForSubject(String subject){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+ NotesTable.NAME +  " where subjectName = "+"'"+subject+"'",null);
+        return res;
+    }
+
     public void notesUpdater(String notes,String title,String mDate, String subjectName){
 
         SQLiteDatabase db = this.getWritableDatabase();

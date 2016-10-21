@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_notes_manager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.infinitequarks.tgz.attenote.AttendanceManagerActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:padding="10sp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@color/colorPrimaryDark"
+        android:text="Notes Manager"/>
+
+    <ListView
+        android:layout_width="match_parent"
+
+        android:id="@+id/notes_list"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+</LinearLayout>
