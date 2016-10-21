@@ -45,6 +45,21 @@ public class AttenoteDbSchema {
         }
 
 
+    } public static  final class NotesTable {
+
+        public static final String NAME = "notestable";
+
+        public static final class Cols{
+            public static final String ID = "ID";
+            public static final String date = "date";
+            public static final String subjectName = "subjectName";
+            public static final String title = "title";
+            public static final String note = "note";
+
+
+        }
+
+
     }
 
 }

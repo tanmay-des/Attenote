@@ -55,10 +55,13 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
             attended = (Switch) itemView.findViewById(R.id.daily_list_item_attended);
             addNotes = (Button) itemView.findViewById(R.id.daily_list_item_add_note);
 
+
         }
 
         @Override
         public void onClick(View v) {
+
+
 //            myClickListener.onItemClick(getPosition(),v);
         }
     }
@@ -102,6 +105,16 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
         }
         else if(position %2 != 0)
             holder.myView.setBackgroundColor(0xFFFFFFFF);
+
+        final String subjectName = mDataset.get(position).getSubjectName();
+        holder.addNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = NoteActivity.noteIntent(v.getContext(),subjectName,fDate);
+                v.getContext().startActivity(intent);
+            }
+        });
 
 
 

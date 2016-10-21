@@ -1,5 +1,6 @@
 package com.infinitequarks.tgz.attenote.database;
 
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import com.infinitequarks.tgz.attenote.TimeData;
 import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.SubjectTable;
 import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.TimeTable;
 import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.Attendance;
+import com.infinitequarks.tgz.attenote.database.AttenoteDbSchema.NotesTable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,6 +60,13 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
                 Attendance.Cols.subjectName + " ," +
                 Attendance.Cols.attended + " ," +
                 Attendance.Cols.date + " )"
+        );
+
+        db.execSQL("create table "+ NotesTable.NAME+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                NotesTable.Cols.subjectName + " ," +
+                NotesTable.Cols.note + " ," +
+                NotesTable.Cols.title + " ," +
+                NotesTable.Cols.date + " )"
         );
 
         fakeData(db);
@@ -107,6 +116,7 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXIST "+SubjectTable.NAME);
         db.execSQL("DROP TABLE IF EXIST "+TimeTable.NAME);
         db.execSQL("DROP TABLE IF EXIST "+Attendance.NAME);
+        db.execSQL("DROP TABLE IF EXIST "+ NotesTable.NAME);
         onCreate(db);
     }
 
@@ -286,4 +296,51 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
 //        return  db.delete(TABLE_SUBJECTS,"SubjectName = ?",new String[] {mName});
 
 //    }
+
+
+    public void notesInitializer(String mDate,String subjectName){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] args = new String[]{mDate, subjectName};
+        Cursor res = db.rawQuery("select * from "+ NotesTable.NAME +  " where date = ? AND subjectName = ?",args);
+
+        if(res.getCount()==0){
+
+            ContentValues values = new ContentValues();
+
+            values.put(NotesTable.Cols.subjectName ,subjectName);
+            values.put(NotesTable.Cols.date, mDate);
+//            values.put(NotesTable.Cols.title, );
+            values.put(NotesTable.Cols.note,"-Start Adding Notes :) \n");
+
+            db.insert(NotesTable.NAME,null,values);
+        }
+        else
+            Log.d("data","found");
+    }
+    public String[] getNotes(String mDate,String subjectName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String note = new String();
+        String title = new String();
+        String[] args = new String[]{mDate, subjectName};
+        Cursor res = db.rawQuery("select * from "+ NotesTable.NAME +  " where date = ? AND subjectName = ?",args);
+        while (res.moveToNext()){
+            note = res.getString(2);
+            title = res.getString(3);
+        }
+        String[] ret = new String[]{note,title};
+        return ret;
+    }
+
+    public void notesUpdater(String notes,String title,String mDate, String subjectName){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues newValues = new ContentValues();
+
+        newValues.put(NotesTable.Cols.note, notes);
+        newValues.put(NotesTable.Cols.title , title);
+
+        String[] args = new String[]{mDate, subjectName};
+        db.update(NotesTable.NAME, newValues, "date=? AND subjectName=?", args);
+    }
 }

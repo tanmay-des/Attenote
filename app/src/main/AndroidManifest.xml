@@ -9,19 +9,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AttenoteMainActivity">
-
         </activity>
         <activity android:name=".AddSubjectActivity">
         </activity>
         <activity android:name=".SetTimeTableActivity">
         </activity>
         <activity android:name=".DailyNoteActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".NoteActivity">
         </activity>
     </application>
 
