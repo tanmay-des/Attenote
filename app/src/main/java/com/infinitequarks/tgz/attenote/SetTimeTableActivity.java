@@ -44,9 +44,13 @@ public class SetTimeTableActivity extends AppCompatActivity {
         subjectList = mDatabase.getSubjectList();
 
         currentAdapter = new TimeListAdapter(SetTimeTableActivity.this, subjectList, i);
+
         mDayTextView = (TextView) findViewById(R.id.day_no);
         mDayTextView.setText(dayArray[i]);
+
+
         mListView = (ListView) findViewById(R.id.time_data_list);
+
         mListView.setAdapter(currentAdapter);
         i++;
         for(int i = 0; i < subjectList.length; i++){

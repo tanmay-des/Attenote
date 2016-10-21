@@ -130,6 +130,11 @@ public class DailyNoteActivity extends AppCompatActivity {
                 startActivity(i1);
                 break;
 
+            case R.id.link_settings:
+                Intent i2= new Intent(this,AttenoteMainActivity.class);
+                startActivity(i2);
+                break;
+
 
         }
 

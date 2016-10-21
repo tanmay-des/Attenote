@@ -10,5 +10,10 @@
         android:alphabeticShortcut="a"
         android:numericShortcut="1"
         android:title="Notes Manager"/>
+    <item
+        android:id="@+id/link_settings"
+        android:alphabeticShortcut="a"
+        android:numericShortcut="1"
+        android:title="Settings"/>
 
 </menu>
