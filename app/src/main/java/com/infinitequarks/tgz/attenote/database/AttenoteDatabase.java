@@ -78,12 +78,12 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
     public void fakeData(SQLiteDatabase mdb){
         SQLiteDatabase db = mdb;
 
-
+        String [] subjects = new String[]{"Mathematics I" , "Physics II", "Networking","Electronics II","Artificial Intelligence","Physics Lab","Networking Lab","Electronics Lab","AI lab","Electives"};
         for(int i=0;i<9;i++){
             ContentValues values = new ContentValues();
-            int mj = i +1;
-            values.put(SubjectTable.Cols.subjectName ,"Subject "+mj);
-            if(i<4){
+
+            values.put(SubjectTable.Cols.subjectName ,subjects[i]);
+            if(i<5){
                 values.put(SubjectTable.Cols.isTheory,"true");
             }
             else
@@ -95,11 +95,11 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
 
         for (int i = 0;i<5;i++){
 
-            for (int j =0;j<4;j++){
+            for (int j =0;j<5;j++){
                 ContentValues values = new ContentValues();
                 Random r = new Random();
-                int i1 = r.nextInt(10 - 1) + 1;
-                values.put(TimeTable.Cols.subjectName,"Subject "+ i1);
+                int i1 = r.nextInt(10 - 1);
+                values.put(TimeTable.Cols.subjectName,subjects[i1]);
                 values.put(TimeTable.Cols.day_no,i);
                 int mj = 9+j;
                 values.put(TimeTable.Cols.startTime,mj+":"+"30");
@@ -158,6 +158,12 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
     }
 
     // Functions for table Subject TABLE
+
+
+//    public void timeTabelInitializer(){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//    }
 
     public void insertData (TimeData newTimeTable){
         SQLiteDatabase db = this.getWritableDatabase();
