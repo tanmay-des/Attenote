@@ -3,6 +3,7 @@ package com.infinitequarks.tgz.attenote.database;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -252,6 +253,20 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
     }
 
 
+    public String getAttendanceForSubject(String subjectName){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int total =0;
+        int attend =0;
+        Cursor res = db.rawQuery("select * from "+Attendance.NAME + " where subjectName = "+"'"+subjectName+"'",null);
+        while (res.moveToNext()){
+            if(res.getInt(2) == 0)
+                total++;
+            else if(res.getInt(2)!=0)
+                attend++;total++;
+        }
+        String ret ="Total : "+attend+"/"+total;
+        return ret;
+    }
     public String getAttendanceData(String mdate, String subjectname){
         SQLiteDatabase db = this.getWritableDatabase();
         String mylol= new String();

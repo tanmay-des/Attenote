@@ -1,10 +1,14 @@
 package com.infinitequarks.tgz.attenote;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.infinitequarks.tgz.attenote.database.AttenoteDatabase;
@@ -105,4 +109,28 @@ public class DailyNoteActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // TODO Auto-generated method stub
+        super.onCreateOptionsMenu(menu);
+        MenuInflater mymenu = getMenuInflater();
+        mymenu.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // TODO Auto-generated method stub
+        switch (item.getItemId()) {
+            case R.id.link_attendance_manager:
+                Intent i= new Intent(this,AttendanceManagerActivity.class);
+                startActivity(i);
+                break;
+
+            case R.id.link_notes_manager:
+                break;
+
+
+        }
+
+        return false;
+    }
 }

@@ -15,6 +15,7 @@
         <activity android:name=".SetTimeTableActivity">
         </activity>
         <activity android:name=".DailyNoteActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -23,6 +24,10 @@
         </activity>
         <activity android:name=".NoteActivity">
         </activity>
+        <activity android:name=".AttendanceManagerActivity">
+
+        </activity>
+
     </application>
 
 </manifest>
