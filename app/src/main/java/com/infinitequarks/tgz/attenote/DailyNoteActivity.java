@@ -133,7 +133,7 @@ public class DailyNoteActivity extends AppCompatActivity {
 
 
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        e.printStackTrace() ;
                     }
                 }
 
