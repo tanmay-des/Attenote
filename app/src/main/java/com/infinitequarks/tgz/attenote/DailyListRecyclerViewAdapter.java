@@ -35,6 +35,7 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
     AttenoteDatabase mDatabase ;
     Date cDate = new Date();
     String fDate = new SimpleDateFormat("yyyy-MM-dd").format(cDate);
+    public ArrayList<String[]> curClass = new ArrayList<>();
 
 //    private static MyClickListener myClickListener;
 
@@ -88,6 +89,10 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
         holder.subjectName.setText(mDataset.get(position).getSubjectName());
         holder.startTime.setText(mDataset.get(position).getStartTime());
         holder.endTime.setText(mDataset.get(position).getEndTime());
+        String[] newTime  = new String[]{mDataset.get(position).getStartTime(),mDataset.get(position).getEndTime()};
+
+        curClass.add(newTime);
+
         boolean newbool = false;
         if(mDatabase.getAttendanceData(fDate,mDataset.get(position).getSubjectName()).equals("1")){
             newbool = true;
@@ -120,6 +125,9 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
 
     }
 
+     ArrayList<String[]> getCurClass (){
+        return curClass;
+    }
     @Override
     public int getItemCount() {
         return mDataset.size();
@@ -128,4 +136,5 @@ public class DailyListRecyclerViewAdapter extends RecyclerView
     public void updateAttendance(boolean bool, String string1,String string2){
             mDatabase.updateSubjectAttendance(bool,string1,string2);
     }
+
 }

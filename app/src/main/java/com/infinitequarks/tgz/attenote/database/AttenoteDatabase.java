@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
+import android.support.annotation.StringRes;
 import android.util.Log;
 
 import com.infinitequarks.tgz.attenote.Subject;
@@ -93,7 +94,7 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
         }
 
 
-        for (int i = 0;i<5;i++){
+        for (int i = 0;i<7;i++){
 
             for (int j =0;j<5;j++){
                 ContentValues values = new ContentValues();
@@ -183,6 +184,27 @@ public class AttenoteDatabase extends SQLiteOpenHelper {
         values.put(TimeTable.Cols.endTime, newTimeTable.getEndTime());
         Log.d("data save",values.toString());
         return values;
+    }
+    public ArrayList<String[]> getTimeOfSubjects(String dayNo){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String[]> newArList = new ArrayList<>();
+        Cursor res = db.rawQuery("select * from "+TimeTable.NAME +" WHERE day_no = " + dayNo ,null);
+        while (res.moveToNext()){
+
+            TimeData newTimeData = new TimeData();
+
+            newTimeData.setSubjectName(res.getString(2));
+            newTimeData.setStartTime(res.getString(4));
+            newTimeData.setEndTime(res.getString(5));
+
+
+
+            String[] newStr = new String[]{res.getString(2),res.getString(4),res.getString(5)};
+            newArList.add(newStr);
+//            Log.d("data",newList.toString());
+        }
+        return newArList;
     }
 
 
